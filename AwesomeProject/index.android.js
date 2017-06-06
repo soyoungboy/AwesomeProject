@@ -21,6 +21,14 @@ import AwesomeProject from './view/AwesomeProject';
 import Day17 from './view/day17';
 import SampleAppMovies from './view/SampleAppMovies';
 import DoubanMovies from './view/DoubanMovies';
+import MeiTuan from './view/ListViewProjects';
+import MyWebView from './view/MyWebView';
+import DataPickerDemo from './view/DataPickerDemo';
+import ClipBoardDemo from './view/ClipBoardDemo';
+import TimePickerAndroidDemo from './view/TimePickerAndroidDemo';
+import LinkingDemo from './view/LinkingDemo';
+import DoubanMovies2 from './view/DoubanMovies2';
+
 const MainScreenNavigator = TabNavigator({
         HomeVC: {
             screen: AwesomeProject,
@@ -102,7 +110,7 @@ const SimpleApp = StackNavigator({
             screen: MainScreenNavigator,
         },
     AwesomeProject:{screen: AwesomeProject},
-    Chat: {screen: DoubanMovies},
+    Chat: {screen: MyWebView},
     },
 );
 

@@ -17,7 +17,7 @@ import {
 
 import Util from './utils';
 var REQUEST_URL = 'https://api.douban.com/v2/movie/in_theaters';
-export default class DoubanMovies extends Component {
+export default class DoubanMovies2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,34 +29,37 @@ export default class DoubanMovies extends Component {
     }
 
     componentDidMount() {
-        this.fetchData();
+        // this.fetchData();
+        this.requestData();
     }
 
-    fetchData() {
-        fetch(REQUEST_URL)
-            .then((response) => response.json())
-            .catch((error) => {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows([]),
-                    loaded: false,
-                });
-            })
-            .then((responseData) => {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.subjects),
-                    loaded: true,
-                });
-                if (this.swipeRefreshLayout){
-                this.swipeRefreshLayout.finishRefresh();
-                }
-                if (this.swipeRefreshLayout){
-                    ToastAndroid.show('刷新完成', ToastAndroid.SHORT);
-                }
 
+    async requestData() {
+        try {
+            // 注意这里的await语句，其所在的函数必须有async关键字声明
+            let response = await fetch(REQUEST_URL);
+            let responseJson = await response.json();
+            let dataList = responseJson.subjects.map((info) => {
+                return {
+                    id:info.id,
+                    alt:info.alt,
+                    imageUrl: info.images.small,
+                    title: info.title,
+                    year:  info.year
+                }
             })
-            .done();
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(dataList),
+                loaded: true,
+            });
+        } catch(error) {
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows([]),
+                loaded: false,
+            });
+            console.error(error);
+        }
     }
-
 
     render() {
         if (!this.state.loaded) {
@@ -83,16 +86,16 @@ export default class DoubanMovies extends Component {
         );
     }
 
-    renderMovie(movie) {
+    renderMovie(dataList) {
         return (
             <View style={styles.container}>
                 <Image
-                    source={{uri: movie.images.small}}
+                    source={{uri: dataList.imageUrl}}
                     style={styles.thumbnail}
                 />
                 <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{movie.title}</Text>
-                    <Text style={styles.year}>{movie.year}</Text>
+                    <Text style={styles.title}>{dataList.title}</Text>
+                    <Text style={styles.year}>{dataList.year}</Text>
                 </View>
             </View>
         );

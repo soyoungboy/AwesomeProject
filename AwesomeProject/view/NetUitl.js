@@ -52,12 +52,29 @@ class NetUitl extends Component {
      *callback:回调函数
      */
     static  get(url, callback) {
+        // fetch(url)
+        //     .then((response) => response.text())
+        //     .then((responseText) => {
+        //         // callback(JSON.parse(responseText));
+        //         callback(responseText);
+        //     }).done();
+
+        // fetch(REQUEST_URL)
+        //     .then((response) => response.json())
+        //     .then((responseData) => {
+        //         this.setState({
+        //             dataSource: this.state.dataSource.cloneWithRows(responseData.subjects),
+        //             loaded: true,
+        //         });
+        //     })
+        //     .done();
+        //
         fetch(url)
-            .then((response) => response.text())
-            .then((responseText) => {
-                // callback(JSON.parse(responseText));
-                callback(responseText);
-            }).done();
+            .then((response) => response.json())
+            .then((responseData) => {
+                callback(responseData);
+            })
+            .done();
     }
 
 }

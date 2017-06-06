@@ -12,9 +12,11 @@ import {
     DrawerLayoutAndroid,
     TouchableOpacity,
     View,
+    WebView,
 } from 'react-native';
 import NetUitl from './NetUitl';
 import MyButton from './MyButton';
+var DEFAULT_URL = 'https://www.zhihu.com/';
 export default class AwesomeProject extends Component {
     static navigationOptions = {
         title: 'Welcome',
@@ -25,6 +27,7 @@ export default class AwesomeProject extends Component {
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds.cloneWithRows(['王富彬', '李琼琼', '王富彬', '李琼琼']),
+            url: DEFAULT_URL,
         };
     }
 
@@ -133,6 +136,16 @@ export default class AwesomeProject extends Component {
 
                         >
                         </MyButton>
+
+                        <Text style={{height:40}}>简单的网页显示</Text>
+                        <WebView style={styles.webview_style}
+                                 source={{url: this.state.url}}
+                                 startInLoadingState={true}
+                                 domStorageEnabled={true}
+                                 javaScriptEnabled={true}
+                        >
+                        </WebView>
+
                         <ListView
                             dataSource={this.state.dataSource}
                             renderRow={(rowData) => <Text>{rowData}</Text>
@@ -163,5 +176,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+    },
+    webview_style:{
+        backgroundColor:'#00ff00',
     },
 });
