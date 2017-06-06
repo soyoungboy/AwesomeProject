@@ -28,6 +28,12 @@ import ClipBoardDemo from './view/ClipBoardDemo';
 import TimePickerAndroidDemo from './view/TimePickerAndroidDemo';
 import LinkingDemo from './view/LinkingDemo';
 import DoubanMovies2 from './view/DoubanMovies2';
+import LayoutAnimationDemo from './view/LayoutAnimationDemo';
+import PermissionDemo from './view/PermissionDemo';
+import TimersDemo from './view/TimersDemo';
+
+
+
 
 const MainScreenNavigator = TabNavigator({
         HomeVC: {
